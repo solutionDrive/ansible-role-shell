@@ -1,0 +1,62 @@
+" show line numbers
+set number
+
+" scroll BEFORE reaching bottom/top
+set scrolloff=10
+
+" set color scheme for dark terminal
+set background=dark
+
+" highlight line the cursor is in
+set cursorline
+
+" enable syntax highlighting
+syntax on
+
+
+"   case insensitive search by default
+set ignorecase
+
+"   case sensitive search if capitals are used in search string
+set smartcase
+
+"   highlight found patterns
+set hlsearch
+
+"   search while typing
+set incsearch
+
+
+"   automatic indentation
+set autoindent
+
+"   intelligent indentation
+"
+set smartindent
+
+"   NEVER use tabs, they are evil. Always use spaces.
+set expandtab
+
+"   If file uses tabs, display as 4 spaces.
+set tabstop=4
+
+"   automatic indentation by 4 spaces
+set shiftwidth=4
+
+"   backspace deletes complete tab or 4 spaces
+set softtabstop=4
+
+
+" enable modeline functionality
+set modeline
+
+
+" special settings for specific filetypes following
+filetype plugin indent on
+
+" disable indentation by spaces in Makefiles
+autocmd FileType Makefile setlocal noexpandtab
+
+" ALWAYS use two spaces in YAML files
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+

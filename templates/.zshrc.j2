@@ -1,0 +1,7 @@
+export ZSH={{ shell_user_home }}/.oh-my-zsh
+
+ZSH_THEME="{{ shell_zsh_theme }}"
+plugins=({{ shell_oh_my_zsh_plugins }})
+source $ZSH/oh-my-zsh.sh
+
+umask {{ shell_default_umask }}
