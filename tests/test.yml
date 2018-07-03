@@ -2,7 +2,7 @@
 - hosts: all
 
   vars:
-    deployment_ssh_user: 'travis'
+    deployment_ssh_user: 'root'
 
   pre_tasks:
     - name: Update apt cache.
