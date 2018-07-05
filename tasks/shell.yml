@@ -16,6 +16,11 @@
 
 - name: debug list of users
   shell: "cut -d: -f1 /etc/passwd"
+  register: user_list
+
+- name: debug output of users
+  debug:
+    msg: "{{ user_list }}"
 
 - name: install required packages
   package:
