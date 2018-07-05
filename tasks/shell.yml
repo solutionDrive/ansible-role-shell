@@ -34,6 +34,8 @@
   args:
     chdir: "{{ shell_user_home }}/"
     creates: "{{ shell_user_home }}/.oh-my-zsh"
+  environment:
+    ZSH: "{{ shell_user_home }}/.oh-my-zsh"
   register: oh_my_zsh
   become_user: "{{ deployment_ssh_user }}"
   when: shell_provider == '/bin/zsh'
