@@ -4,7 +4,7 @@
   vars:
     deployment_ssh_user: 'root'
     shell_user: 'root'
-    shell_user_home: '/root'
+    shell_user_home: '~'
 
   pre_tasks:
     - name: Update apt cache.
