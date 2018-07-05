@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: shell
   author: solutionDrive GmbH
   description: Ansible role that provides common shell settings for solutiondrive
   company: solutionDrive GmbH
