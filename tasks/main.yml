@@ -1,0 +1,7 @@
+---
+- fail:
+    msg: "deployment_ssh_user needs to be defined"
+  when: "deployment_ssh_user is not defined or deployment_ssh_user == ''"
+
+- include: shell.yml
+- include: vim.yml

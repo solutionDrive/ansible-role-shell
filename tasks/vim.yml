@@ -1,0 +1,17 @@
+- name: "Add default .vimrc config file"
+  template: >
+    src="vimrc"
+    dest="{{ shell_user_home }}/.vimrc"
+    force=no
+  when: shell_create_vimrc == "true"
+  become: true
+  tags: vim
+
+- name: "Set .vimrc owner"
+  file:
+    path: "{{ shell_user_home }}/.vimrc"
+    owner: "{{ shell_user }}"
+    mode: "0644"
+  when: shell_create_vimrc == "true"
+  become: true
+  tags: vim

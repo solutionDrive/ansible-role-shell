@@ -1,0 +1,60 @@
+---
+- name: "Ensure user '{{ item }}' is available"
+  user:
+    name: "{{ item }}"
+  with_items:
+    - "{{ deployment_ssh_user }}"
+    - "{{ shell_user }}"
+
+- name: Ensure zsh is installed when configured
+  package:
+    name: zsh
+    state: present
+  become: yes
+  when: shell_provider == '/bin/zsh'
+  tags: shell
+
+- name: set the users shell
+  user:
+    name: "{{ shell_user }}"
+    shell: "{{ shell_provider }}"
+  become: yes
+  tags: shell
+
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ shell_zsh_required_packages }}"
+  when: shell_provider == '/bin/zsh'
+  tags: shell
+
+- name: "Install oh-my-zsh when configured"
+  shell: "{{ shell_install_oh_my_zsh_command }}"
+  args:
+    chdir: "{{ shell_user_home }}/"
+    creates: "{{ shell_user_home }}/.oh-my-zsh"
+  environment:
+    ZSH: "{{ shell_user_home }}/.oh-my-zsh"
+  become: yes
+  become_user: "{{ deployment_ssh_user }}"
+  when: shell_provider == '/bin/zsh'
+  tags: shell
+
+- name: "Create .zshrc file when zsh is installed"
+  template:
+    src: ".zshrc.j2"
+    dest: "{{ shell_user_home }}/.zshrc"
+    owner: "{{ deployment_ssh_user }}"
+    group: "www-data"
+  become: yes
+  tags: shell
+
+- name: "Change umask for {{ shell_user }} bash"
+  lineinfile:
+    path: "{{ shell_user_home }}/.bashrc"
+    regexp: "^umask"
+    line: "umask 002"
+  become: yes
+  when: shell_provider == '/bin/bash'
+  tags: shell
