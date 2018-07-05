@@ -36,28 +36,10 @@
     creates: "{{ shell_user_home }}/.oh-my-zsh"
   environment:
     ZSH: "{{ shell_user_home }}/.oh-my-zsh"
-  register: oh_my_zsh
   become: yes
   become_user: "{{ deployment_ssh_user }}"
   when: shell_provider == '/bin/zsh'
   tags: shell
-  ignore_errors: yes
-
-- shell: "ls -ahl {{ shell_user_home }}"
-  register: ls_home
-
-- debug:
-    var: ls_home
-
-- shell: "ls -ahl {{ shell_user_home }}/.oh-my-zsh"
-  register: ls_zsh
-
-- debug:
-    var: ls_zsh
-
-- name: "Debug oh_my_zsh"
-  debug:
-    msg: "{{ oh_my_zsh }}"
 
 - name: "Create .zshrc file when zsh is installed"
   template:
