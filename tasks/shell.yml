@@ -24,6 +24,10 @@
   when: shell_provider == '/bin/zsh'
   tags: shell
 
+- name: "Debug oh_my_zsh"
+  debug:
+    msg: "{{ oh_my_zsh }}"
+
 - name: "Create .zshrc file when zsh is installed"
   template:
     src: ".zshrc.j2"
