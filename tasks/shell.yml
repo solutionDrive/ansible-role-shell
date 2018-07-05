@@ -1,4 +1,8 @@
 ---
+- name: Ensure shell user is available
+  user:
+    name: "{{ deployment_ssh_user }}"
+
 - name: Ensure zsh is installed when configured
   package:
     name: zsh
