@@ -14,6 +14,14 @@
   become: yes
   tags: shell
 
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ shell_zsh_required_packages }}"
+  when: shell_provider == '/bin/zsh'
+  tags: shell
+
 - name: "Install oh-my-zsh when configured"
   shell: "{{ shell_install_oh_my_zsh_command }}"
   args:
