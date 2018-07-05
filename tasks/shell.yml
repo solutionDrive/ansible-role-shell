@@ -37,6 +37,7 @@
   environment:
     ZSH: "{{ shell_user_home }}/.oh-my-zsh"
   register: oh_my_zsh
+  become: yes
   become_user: "{{ deployment_ssh_user }}"
   when: shell_provider == '/bin/zsh'
   tags: shell
