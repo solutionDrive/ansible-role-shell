@@ -2,8 +2,13 @@
 shell_user: "solution"
 shell_user_home: "/home/{{shell_user}}"
 shell_provider: /bin/zsh
-shell_zsh_theme: xiong-chiamiov-plus
+
 shell_create_vimrc: "true"
-shell_install_oh_my_zsh_command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 shell_default_umask: "002"
+
+shell_zsh_required_packages:
+  - curl
+  - git
+shell_zsh_theme: xiong-chiamiov-plus
+shell_install_oh_my_zsh_command: sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 shell_oh_my_zsh_plugins: "git composer"

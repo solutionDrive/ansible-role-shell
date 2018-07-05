@@ -1,4 +1,11 @@
 ---
+- name: "Ensure user '{{ item }}' is available"
+  user:
+    name: "{{ item }}"
+  with_items:
+    - "{{ deployment_ssh_user }}"
+    - "{{ shell_user }}"
+
 - name: Ensure zsh is installed when configured
   package:
     name: zsh
@@ -14,12 +21,22 @@
   become: yes
   tags: shell
 
+- name: install required packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ shell_zsh_required_packages }}"
+  when: shell_provider == '/bin/zsh'
+  tags: shell
+
 - name: "Install oh-my-zsh when configured"
   shell: "{{ shell_install_oh_my_zsh_command }}"
   args:
     chdir: "{{ shell_user_home }}/"
     creates: "{{ shell_user_home }}/.oh-my-zsh"
-  register: oh_my_zsh
+  environment:
+    ZSH: "{{ shell_user_home }}/.oh-my-zsh"
+  become: yes
   become_user: "{{ deployment_ssh_user }}"
   when: shell_provider == '/bin/zsh'
   tags: shell
